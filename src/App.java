@@ -32,7 +32,7 @@ public class App {
 
     public static void help(String msg) {
         System.out.println("\n" + msg + "\n");
-        System.out.println("    -g : Generate Key => pk: ({N}, {e})");
+        System.out.println("    -g : Generate key => pk: ({N}, {e})");
         System.out.println("                         sk: ({N}, {d})");
         System.out.println("    -e <N> <e> <plain text>  : Encrypt plain text  => {cipher text}");
         System.out.println("    -d <N> <d> <cipher text> : Decrypt cipher text => {plain text}");
