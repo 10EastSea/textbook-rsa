@@ -1,18 +1,73 @@
-## Getting Started
+# Textbook RSA
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+1. Generate key
+2. Encrypt plain text
+3. Decrypt cipher text
 
-## Folder Structure
+> This program provides the values in { .. }
 
-The workspace contains two folders by default, where:
+<br />
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## 1. Generate key
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+This program provides public key and secret key. Public key consists of `N` and `e`. Secret key consists of `N` and `d`. `N` consists of a product of primes `p` and `q`. `e` must be 3, and `d` is the relative prime with `e` in the group of the Euler function `phi(N)`.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+    pk: ({N}, {e})
+    sk: ({N}, {d})
 
-## Dependency Management
+<br />
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## 2. Encrypt plain text
+
+If you give a public key `(N, e)` and `plain text`, encrypt them and give cipher text.
+
+    {cipher text}
+
+- `N` :  A part of the public key (Number to create a range of Z group)
+- `e` :  A part of the public key
+- `plain text`: plain text (Must be a number)
+
+<br />
+
+## 3. Decrypt cipher text
+
+If you give a secret key `(N, d)` and `cipher text`, decrypt them and give plain text.
+
+    {plain text}
+
+- `N` :  A part of the public key (Number to create a range of Z group)
+- `d` :  A part of the public key
+- `cipher text`: cipher text (Must be a number)
+
+<br />
+
+# Usage
+
+```Bash
+# java version: openjdk 11.0.11
+cd bin
+java -cp .:../lib/bignum-projects.jar App [FLAG]
+```
+
+### Kind of FLAG
+- `-g` : Generate key
+- `-e <N> <e> <plain text>`  : Encrypt plain text
+- `-d <N> <d> <cipher text>` : Decrypt cipher text
+
+### Example
+```Bash
+# The number was too long, so I omitted it..
+
+# Generate key
+>> java -cp .:../lib/bignum-projects.jar App -g
+pk: (2079036062472838397119809930713802731.., 3)
+sk: (2079036062472838397119809930713802731.., 1386024041648558931413206620475868487..)
+
+# Encrypt plain text
+>> java -cp .:../lib/bignum-projects.jar App -e 2079036062472838397119809930713802731.. 3 980522
+942696787645196648
+
+# Decrypt cipher text
+>> java -cp .:../lib/bignum-projects.jar App -e 2079036062472838397119809930713802731.. 1386024041648558931413206620475868487.. 942696787645196648
+980522
+```
