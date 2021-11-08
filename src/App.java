@@ -1,4 +1,5 @@
 import java.math.BigInteger;
+import java.util.regex.Pattern;
 
 public class App {
 
@@ -15,12 +16,12 @@ public class App {
 
     public static void testEncrypt() {
         TextbookRSA trsa = new TextbookRSA(N, e, m, "Encrypt");
-        System.out.println(trsa.getCipherText());
+        System.out.println(trsa.getCipherText(10));
     }
 
     public static void testDecrypt() {
         TextbookRSA trsa = new TextbookRSA(N, d, c, "Decrypt");
-        System.out.println(trsa.getPlainText());
+        System.out.println(trsa.getPlainText(10));
     }
 
     public static boolean checkDigits(String s) {
@@ -28,6 +29,9 @@ public class App {
             if(Character.isDigit(s.charAt(i)) == false) return false;
         }
         return true;
+    }
+    public static boolean checkHex(String hex) {
+        return Pattern.matches("^[0-9a-fA-F]*$", hex);
     }
 
     public static void help(String msg) {
@@ -37,6 +41,11 @@ public class App {
         System.out.println("    -e <N> <e> <plain text>  : Encrypt plain text  => {cipher text}");
         System.out.println("    -d <N> <d> <cipher text> : Decrypt cipher text => {plain text}");
         System.out.println();
+        System.out.println("    -g-hex : Generate key => pk: ({N(hex)}, {e(hex)})");
+        System.out.println("                             sk: ({N(hex)}, {d(hex)})");
+        System.out.println("    -e-hex <N(hex)> <e(hex)> <plain text(hex)>  : Encrypt plain text  => {cipher text(hex)}");
+        System.out.println("    -d-hex <N(hex)> <d(hex)> <cipher text(hex)> : Decrypt cipher text => {plain text(hex)}");
+        System.out.println();
     }
 
     public static void main(String[] args) throws Exception {
@@ -44,20 +53,37 @@ public class App {
 
         if(args[0].equals("-g")) {
             TextbookRSA trsa = new TextbookRSA();
-            System.out.println("pk: " + trsa.getPk());
-            System.out.println("sk: " + trsa.getSk());
+            System.out.println("pk: " + trsa.getPk(10));
+            System.out.println("sk: " + trsa.getSk(10));
         } else if(args[0].equals("-e")) {
             if(args.length < 4) { help("[-e]: Please enter the <N>, <e> and <plain text>"); return; }
             if(checkDigits(args[1]) && checkDigits(args[2]) && checkDigits(args[3])) {
                 TextbookRSA trsa = new TextbookRSA(new BigInteger(args[1]), new BigInteger(args[2]), new BigInteger(args[3]), "Encrypt");
-                System.out.println(trsa.getCipherText());
+                System.out.println(trsa.getCipherText(10));
             } else { help("[-e]: <N>, <e> and <plain text> must be number"); return; }
         } else if(args[0].equals("-d")) {
             if(args.length < 4) { help("[-d]: Please enter the <N>, <d> and <cipher text>"); return; }
             if(checkDigits(args[1]) && checkDigits(args[2]) && checkDigits(args[3])) {
                 TextbookRSA trsa = new TextbookRSA(new BigInteger(args[1]), new BigInteger(args[2]), new BigInteger(args[3]), "Decrypt");
-                System.out.println(trsa.getPlainText());
+                System.out.println(trsa.getPlainText(10));
             } else { help("[-d]: <N>, <d> and <cipher text> must be number"); return; }
+        }
+        else if(args[0].equals("-g-hex")) {
+            TextbookRSA trsa = new TextbookRSA();
+            System.out.println("pk: " + trsa.getPk(16));
+            System.out.println("sk: " + trsa.getSk(16));
+        } else if(args[0].equals("-e-hex")) {
+            if(args.length < 4) { help("[-e-hex]: Please enter the <N(hex)>, <e(hex)> and <plain text(hex)>"); return; }
+            if(checkHex(args[1]) && checkHex(args[2]) && checkHex(args[3])) {
+                TextbookRSA trsa = new TextbookRSA(new BigInteger(args[1], 16), new BigInteger(args[2], 16), new BigInteger(args[3], 16), "Encrypt");
+                System.out.println(trsa.getCipherText(16));
+            } else { help("[-e-hex]: <N(hex)>, <e(hex)> and <plain text(hex)> must be hex number"); return; }
+        } else if(args[0].equals("-d-hex")) {
+            if(args.length < 4) { help("[-d-hex]: Please enter the <N(hex)>, <d(hex)> and <cipher text(hex)>"); return; }
+            if(checkHex(args[1]) && checkHex(args[2]) && checkHex(args[3])) {
+                TextbookRSA trsa = new TextbookRSA(new BigInteger(args[1], 16), new BigInteger(args[2], 16), new BigInteger(args[3], 16), "Decrypt");
+                System.out.println(trsa.getPlainText(16));
+            } else { help("[-d-hex]: <N(hex)>, <d(hex)> and <cipher text(hex)> must be hex number"); return; }
         }
         else if(args[0].equals("-help")) { help("Usage: java -cp .:../lib/bignum-projects.jar App [FALG]\nThe following flag provides the values in { .. }"); return; }
         else { help("This [FLAG] does not exist\nThe following flag provides the values in { .. }"); return; }

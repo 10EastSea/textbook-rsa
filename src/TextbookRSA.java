@@ -16,7 +16,7 @@ public class TextbookRSA {
     private BigInteger e, d;
     private BigInteger m, c;
 
-    // 1. Generate Key
+    // 1. Generate key
     public TextbookRSA() {
         while(true) {
             createN();
@@ -63,10 +63,10 @@ public class TextbookRSA {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String getPk() { return "(" + N.toString() + ", " + e.toString() + ")"; }
-    public String getSk() { return "(" + N.toString() + ", " + d.toString() + ")"; }
-    public String getPlainText() { return m.toString(); }
-    public String getCipherText() { return c.toString(); }
+    public String getPk(int notation) { return "(" + N.toString(notation) + ", " + e.toString(notation) + ")"; }
+    public String getSk(int notation) { return "(" + N.toString(notation) + ", " + d.toString(notation) + ")"; }
+    public String getPlainText(int notation) { return m.toString(notation); }
+    public String getCipherText(int notation) { return c.toString(notation); }
 
     public void testPrint() {
         System.out.println();
