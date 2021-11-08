@@ -47,6 +47,10 @@ If you give a secret key `(N, d)` and `cipher text`, decrypt them and give plain
 # java version: openjdk 11.0.11
 cd bin
 java -cp .:../lib/bignum-projects.jar App [FLAG]
+
+# If you use the string version, you must add the cryptools library to the class path
+# But, the length of the string must not exceed 42 (Recommended length: 32)
+java -cp .:../lib/bignum-projects.jar:../lib/crtptools.jar App [FLAG]
 ```
 
 ### Kind of FLAG
@@ -56,6 +60,8 @@ java -cp .:../lib/bignum-projects.jar App [FLAG]
 - `-g-hex` : Generate key (hex version)
 - `-e-hex <N(hex)> <e(hex)> <plain text(hex)>`  : Encrypt plain text (hex version)
 - `-d-hex <N(hex)> <d(hex)> <cipher text(hex)>` : Decrypt cipher text (hex version)
+- `-e-msg <N(hex)> <e(hex)> <plain text(message)>` : Encrypt plain text (string version)
+- `-d-msg <N(hex)> <d(hex)> <cipher text(hex)>`    : Decrypt cipher text (string version)
 - `-help` : How to use it
 
 ### Example
@@ -88,4 +94,13 @@ sk: (a3489e9024f80dde35f59f5cc72e8711d19cb.., 6cdb146018a55e9423f914e884c9af6136
 # Decrypt cipher text (hex version)
 >> java -cp .:../lib/bignum-projects.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 6cdb146018a55e9423f914e884c9af6136687.. 359b6de46e325a5588
 980522
+
+
+# Encrypt plain text (string version)
+>> java -cp .:../lib/bignum-projects.jar:../lib/crtptools.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 3 apple
+e1dc6f4ba8288a69150f47cbe5c9d
+
+# Decrypt cipher text (hex version)
+>> java -cp .:../lib/bignum-projects.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 6cdb146018a55e9423f914e884c9af6136687.. e1dc6f4ba8288a69150f47cbe5c9d
+apple
 ```
