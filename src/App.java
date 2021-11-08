@@ -46,6 +46,9 @@ public class App {
         System.out.println("    -e-hex <N(hex)> <e(hex)> <plain text(hex)>  : Encrypt plain text  => {cipher text(hex)}");
         System.out.println("    -d-hex <N(hex)> <d(hex)> <cipher text(hex)> : Decrypt cipher text => {plain text(hex)}");
         System.out.println();
+        System.out.println("    -e-msg <N(hex)> <e(hex)> <plain text(message)> : Encrypt plain text (plain text is a string)  => {cipher text(hex)}");
+        System.out.println("    -d-msg <N(hex)> <d(hex)> <cipher text(hex)>    : Decrypt cipher text (cipher text is a hex)   => {plain text(message)}");
+        System.out.println();
     }
 
     public static void main(String[] args) throws Exception {
@@ -68,6 +71,7 @@ public class App {
                 System.out.println(trsa.getPlainText(10));
             } else { help("[-d]: <N>, <d> and <cipher text> must be number"); return; }
         }
+
         else if(args[0].equals("-g-hex")) {
             TextbookRSA trsa = new TextbookRSA();
             System.out.println("pk: " + trsa.getPk(16));
@@ -85,13 +89,22 @@ public class App {
                 System.out.println(trsa.getPlainText(16));
             } else { help("[-d-hex]: <N(hex)>, <d(hex)> and <cipher text(hex)> must be hex number"); return; }
         }
+        
+        else if(args[0].equals("-e-msg")) {
+            if(args.length < 4) { help("[-e-msg]: Please enter the <N(hex)>, <e(hex)> and <plain text(message)>"); return; }
+            if(checkHex(args[1]) && checkHex(args[2])) {
+                TextbookRSA trsa = new TextbookRSA(new BigInteger(args[1], 16), new BigInteger(args[2], 16), new BigInteger(Util.binaryToHex(Util.stringToBinary(args[3], "utf-8")), 16), "Encrypt");
+                System.out.println(trsa.getCipherText(16));
+            } else { help("[-e-msg]: <N(hex)> and <e(hex)> must be hex number"); return; }
+        } else if(args[0].equals("-d-msg")) {
+            if(args.length < 4) { help("[-d-hex]: Please enter the <N(hex)>, <d(hex)> and <cipher text(hex)>"); return; }
+            if(checkHex(args[1]) && checkHex(args[2]) && checkHex(args[3])) {
+                TextbookRSA trsa = new TextbookRSA(new BigInteger(args[1], 16), new BigInteger(args[2], 16), new BigInteger(args[3], 16), "Decrypt");
+                System.out.println(Util.binaryToString(Util.hexToBinary(trsa.getPlainText(16))));
+            } else { help("[-d-msg]: <N(hex)>, <d(hex)> and <cipher text(hex)> must be hex number"); return; }
+        }
+
         else if(args[0].equals("-help")) { help("Usage: java -cp .:../lib/bignum-projects.jar App [FALG]\nThe following flag provides the values in { .. }"); return; }
         else { help("This [FLAG] does not exist\nThe following flag provides the values in { .. }"); return; }
     }
 }
-
-// 숫자를 hex로 바꿔서 제공
-
-// 문자 Encryption: cryptools 이용해서 문자를 숫자로 바꿈(string to hex -> hex to decimal) -> 그 숫자를 encrypt
-// 문자 Decryption: 그 숫자를 decrypt -> cryptools 이용해서 숫자를 문자로 바꿈(decimal to hex -> hex to String)
-// ** 문자의 길이는 32를 넘지 말아야 함 **
