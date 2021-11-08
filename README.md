@@ -25,7 +25,7 @@ If you give a public key `(N, e)` and `plain text`, encrypt them and give cipher
 
 - `N` :  A part of the public key (Number to create a range of Z group)
 - `e` :  A part of the public key
-- `plain text`: plain text (Must be a number)
+- `plain text`: plain text (Must be a number, but there's a string version, too)
 
 <br />
 
@@ -37,7 +37,7 @@ If you give a secret key `(N, d)` and `cipher text`, decrypt them and give plain
 
 - `N` :  A part of the public key (Number to create a range of Z group)
 - `d` :  A part of the public key
-- `cipher text`: cipher text (Must be a number)
+- `cipher text`: cipher text (Must be a number, but there's a string version, too)
 
 <br />
 
