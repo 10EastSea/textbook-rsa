@@ -74,4 +74,18 @@ sk: (2079036062472838397119809930713802731.., 1386024041648558931413206620475868
 # Decrypt cipher text
 >> java -cp .:../lib/bignum-projects.jar App -e 2079036062472838397119809930713802731.. 1386024041648558931413206620475868487.. 942696787645196648
 980522
+
+
+# Generate key (hex version)
+>> java -cp .:../lib/bignum-projects.jar App -g-hex
+pk: (a3489e9024f80dde35f59f5cc72e8711d19cb.., 3)
+sk: (a3489e9024f80dde35f59f5cc72e8711d19cb.., 6cdb146018a55e9423f914e884c9af6136687..)
+
+# Encrypt plain text (hex version)
+>> java -cp .:../lib/bignum-projects.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 3 980522
+359b6de46e325a5588
+
+# Decrypt cipher text (hex version)
+>> java -cp .:../lib/bignum-projects.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 6cdb146018a55e9423f914e884c9af6136687.. 359b6de46e325a5588
+980522
 ```
