@@ -53,6 +53,10 @@ java -cp .:../lib/bignum-projects.jar App [FLAG]
 - `-g` : Generate key
 - `-e <N> <e> <plain text>`  : Encrypt plain text
 - `-d <N> <d> <cipher text>` : Decrypt cipher text
+- `-g-hex` : Generate key (hex version)
+- `-e-hex <N(hex)> <e(hex)> <plain text(hex)>`  : Encrypt plain text (hex version)
+- `-d-hex <N(hex)> <d(hex)> <cipher text(hex)>` : Decrypt cipher text (hex version)
+- `-help` : How to use it
 
 ### Example
 ```Bash
