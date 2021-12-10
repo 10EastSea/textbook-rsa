@@ -78,7 +78,7 @@ sk: (2079036062472838397119809930713802731.., 1386024041648558931413206620475868
 942696787645196648
 
 # Decrypt cipher text
->> java -cp .:../lib/bignum-projects.jar App -e 2079036062472838397119809930713802731.. 1386024041648558931413206620475868487.. 942696787645196648
+>> java -cp .:../lib/bignum-projects.jar App -d 2079036062472838397119809930713802731.. 1386024041648558931413206620475868487.. 942696787645196648
 980522
 
 
@@ -88,19 +88,19 @@ pk: (a3489e9024f80dde35f59f5cc72e8711d19cb.., 3)
 sk: (a3489e9024f80dde35f59f5cc72e8711d19cb.., 6cdb146018a55e9423f914e884c9af6136687..)
 
 # Encrypt plain text (hex version)
->> java -cp .:../lib/bignum-projects.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 3 980522
+>> java -cp .:../lib/bignum-projects.jar App -e-hex a3489e9024f80dde35f59f5cc72e8711d19cb.. 3 980522
 359b6de46e325a5588
 
 # Decrypt cipher text (hex version)
->> java -cp .:../lib/bignum-projects.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 6cdb146018a55e9423f914e884c9af6136687.. 359b6de46e325a5588
+>> java -cp .:../lib/bignum-projects.jar App -d-hex a3489e9024f80dde35f59f5cc72e8711d19cb.. 6cdb146018a55e9423f914e884c9af6136687.. 359b6de46e325a5588
 980522
 
 
 # Encrypt plain text (string version)
->> java -cp .:../lib/bignum-projects.jar:../lib/crtptools.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 3 apple
+>> java -cp .:../lib/bignum-projects.jar:../lib/crtptools.jar App -e-msg a3489e9024f80dde35f59f5cc72e8711d19cb.. 3 apple
 e1dc6f4ba8288a69150f47cbe5c9d
 
 # Decrypt cipher text (hex version)
->> java -cp .:../lib/bignum-projects.jar App -e a3489e9024f80dde35f59f5cc72e8711d19cb.. 6cdb146018a55e9423f914e884c9af6136687.. e1dc6f4ba8288a69150f47cbe5c9d
+>> java -cp .:../lib/bignum-projects.jar App -d-msg a3489e9024f80dde35f59f5cc72e8711d19cb.. 6cdb146018a55e9423f914e884c9af6136687.. e1dc6f4ba8288a69150f47cbe5c9d
 apple
 ```
